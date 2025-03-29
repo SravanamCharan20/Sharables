@@ -57,14 +57,15 @@ app.use(cors({
 
 app.use(express.json());
 
-// Session configuration
+// Session configuration with Railway-specific settings
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    sameSite: 'lax'
   }
 }));
 
@@ -135,6 +136,11 @@ io.on('connection', (socket) => {
   });
 });
 
+// Health check endpoint for Railway
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // Routes
 app.use('/uploads', express.static(path.resolve('uploads')));
 app.use('/api/user', userRouter);
@@ -166,15 +172,25 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO)
-    .then(() => {
-        console.log("Connected to DB");
-    })
-    .catch((err) => {
-        console.error("MongoDB connection error:", err);
-        process.exit(1);
+// Connect to MongoDB with retry logic
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+      retryWrites: true,
+      w: 'majority'
     });
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+    // Retry connection after 5 seconds
+    setTimeout(connectDB, 5000);
+  }
+};
+
+connectDB();
 
 // Start server
 const PORT = process.env.PORT;
