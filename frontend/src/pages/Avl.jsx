@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiArrowSmRight } from "react-icons/hi";
 import { FiFilter } from "react-icons/fi";
+import { getApiUrl } from '../config/api';
 
 const AvailableFoodList = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -87,7 +88,12 @@ const AvailableFoodList = () => {
 
   const fetchFoodItems = async () => {
     try {
-      const response = await fetch('/api/donor/donorform');
+      const token = localStorage.getItem('access_token');
+      const response = await fetch('/api/donor/donorform', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -95,6 +101,7 @@ const AvailableFoodList = () => {
       setFoodItems(data);
     } catch (error) {
       setError('Failed to load food items.');
+      console.error('Error fetching food items:', error);
     } finally {
       setLoading(false);
     }

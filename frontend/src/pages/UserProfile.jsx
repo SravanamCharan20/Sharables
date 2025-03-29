@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FiEdit2, FiMail, FiUser } from 'react-icons/fi';
 import { HiLocationMarker } from 'react-icons/hi';
 import axios from 'axios';
+import { getApiUrl } from '../config/api';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -17,7 +18,7 @@ const UserProfile = () => {
         throw new Error('No access token found');
       }
 
-      const response = await axios.get('http://localhost:6001/api/auth/profile', {
+      const response = await axios.get(getApiUrl('api/auth/profile'), {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

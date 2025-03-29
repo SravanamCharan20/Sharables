@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaLightbulb, FaChartLine, FaCalendarAlt, FaUsers, FaLeaf } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-
-const BACKEND_URL = 'http://localhost:6001'; // Add backend URL
+import { getApiUrl } from '../config/api';
 
 const AIInsights = ({ userStats, donationType }) => {
   const [insights, setInsights] = useState(null);
@@ -26,7 +25,7 @@ const AIInsights = ({ userStats, donationType }) => {
           return;
         }
 
-        const response = await fetch(`${BACKEND_URL}/api/ai/suggestions`, {
+        const response = await fetch(getApiUrl('api/ai/suggestions'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

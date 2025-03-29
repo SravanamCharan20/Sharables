@@ -4,6 +4,7 @@ import { IoMdNotifications } from 'react-icons/io';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { getApiUrl } from '../config/api';
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
@@ -19,7 +20,7 @@ const Notification = () => {
         return;
       }
 
-      const response = await axios.get('http://localhost:6001/api/notifications', {
+      const response = await axios.get(getApiUrl('api/notifications'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -52,7 +53,7 @@ const Notification = () => {
 
   const handleNotificationClick = async (notificationId) => {
     try {
-      await axios.put(`http://localhost:6001/api/notifications/${notificationId}/read`, null, {
+      await axios.put(getApiUrl(`api/notifications/${notificationId}/read`), null, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         }
@@ -65,7 +66,7 @@ const Notification = () => {
 
   const clearAllNotifications = async () => {
     try {
-      await axios.put('http://localhost:6001/api/notifications/mark-all-read', null, {
+      await axios.put(getApiUrl('api/notifications/mark-all-read'), null, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         }

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { FiUser, FiLock, FiUpload } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import ProfileImage from '../components/ProfileImage';
+import { getApiUrl } from '../config/api';
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
@@ -142,7 +143,7 @@ const UpdateProfile = () => {
 
     try {
       console.log('UpdateProfile: Sending update request');
-      const response = await axios.put('http://localhost:6001/api/auth/update', formData, {
+      const response = await axios.put(getApiUrl('api/auth/update'), formData, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'multipart/form-data',
