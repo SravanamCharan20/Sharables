@@ -175,13 +175,7 @@ if (process.env.NODE_ENV === 'production') {
 // Connect to MongoDB with retry logic
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000,
-      retryWrites: true,
-      w: 'majority'
-    });
+    await mongoose.connect(process.env.MONGO);
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("MongoDB connection error:", err);
