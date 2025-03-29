@@ -17,7 +17,9 @@ const requiredEnvVars = [
   'GOOGLE_CALLBACK_URL',
   'CLIENT_URL',
   'SESSION_SECRET',
-  'GEMINI_API_KEY'
+  'GEMINI_API_KEY',
+  'PORT',
+  'NODE_ENV'
 ];
 
 requiredEnvVars.forEach(varName => {
@@ -44,12 +46,11 @@ import passport from 'passport';
 import session from 'express-session';
 import './config/passport.js';
 
-const PORT = process.env.PORT || 6001;
 const app = express();
 
 // Apply CORS before other middleware
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CORS_ORIGIN,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
@@ -74,7 +75,7 @@ app.use(passport.session());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CORS_ORIGIN,
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -134,6 +135,7 @@ io.on('connection', (socket) => {
   });
 });
 
+// Routes
 app.use('/uploads', express.static(path.resolve('uploads')));
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
@@ -143,6 +145,7 @@ app.use('/api/notifications', notificationRouter);
 app.use('/api/analytics', analyticsRouter);
 app.use('/api/ai', aiRouter);
 
+// Error handling middleware
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
@@ -153,22 +156,28 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Serve static files from the frontend build directory
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+// Serve static files from the frontend build directory in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
+  });
+}
 
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO)
     .then(() => {
         console.log("Connected to DB");
     })
     .catch((err) => {
-        console.log(err);
+        console.error("MongoDB connection error:", err);
+        process.exit(1);
     });
 
+// Start server
+const PORT = process.env.PORT;
 httpServer.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
 });
