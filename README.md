@@ -149,7 +149,7 @@ npm run dev
 
 ## 👥 Authors
 
-- Your Name - Initial work - [YourGithub](https://github.com/SravanamCharan20)
+- [SravanamCharan20](https://github.com/SravanamCharan20)
 
 ---
 Made with ❤️ for a better world 
