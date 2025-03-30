@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
