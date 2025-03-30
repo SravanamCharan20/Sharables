@@ -7,7 +7,6 @@ import store from './store/store';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import Home from './pages/Home';
-// import PrivateRoute from './components/Privateroute';
 import Header from './components/Header';
 import DonorForm from './pages/Donate';
 import AvailableFoodList from './pages/Avl';
@@ -25,8 +24,9 @@ import UserProfile from './pages/UserProfile';
 import ManageNonFood from './pages/ManageNonFood';
 import Chats from './pages/Chats';
 import OAuthCallback from './pages/OAuthCallback';
-import PrivateRoute from './components/PrivateRoute';
+import Private from './components/Private';
 import Analytics from './pages/Analytics';
+
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -50,79 +50,79 @@ const AppContent = () => {
 
         {/* Protected Routes */}
         <Route path='/analytics' element={
-          <PrivateRoute>
+          <Private>
             <Analytics />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/avl' element={
-          <PrivateRoute>
+          <Private>
             <AvailableFoodList />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/avlnf' element={
-          <PrivateRoute>
+          <Private>
             <AvailableNonFood />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/donate' element={
-          <PrivateRoute>
+          <Private>
             <DonorForm />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/food-details/:id' element={
-          <PrivateRoute>
+          <Private>
             <Fooddetails />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/nonfood-details/:id' element={
-          <PrivateRoute>
+          <Private>
             <NonFoodDetails />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/addfood' element={
-          <PrivateRoute>
+          <Private>
             <Addfood />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/addnonfood' element={
-          <PrivateRoute>
+          <Private>
             <AddNonFood />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/managefood' element={
-          <PrivateRoute>
+          <Private>
             <Managefood />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/userprofile' element={
-          <PrivateRoute>
+          <Private>
             <UserProfile />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/managenonfood' element={
-          <PrivateRoute>
+          <Private>
             <ManageNonFood />
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/update-profile' element={
-          <PrivateRoute>
+          <Private>
             <UpdateProfile/>
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/myrequests/:userId' element={
-          <PrivateRoute>
+          <Private>
             <MyRequests/>
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/requests-nonfood/:userId' element={
-          <PrivateRoute>
+          <Private>
             <MyNonFoodRequests/>
-          </PrivateRoute>
+          </Private>
         } />
         <Route path='/chats' element={
-          <PrivateRoute>
+          <Private>
             <Chats />
-          </PrivateRoute>
+          </Private>
         } />
       </Routes>
     </>

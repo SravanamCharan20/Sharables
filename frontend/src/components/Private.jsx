@@ -2,7 +2,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const PrivateRoute = ({ children }) => {
+const Private = ({ children }) => {
   const { currentUser, isAuthenticated, loading } = useSelector(state => state.user);
   const location = useLocation();
 
@@ -22,4 +22,4 @@ const PrivateRoute = ({ children }) => {
   return children;
 };
 
-export default PrivateRoute;
+export default Private;
