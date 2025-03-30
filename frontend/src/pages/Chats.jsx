@@ -41,7 +41,7 @@ const Chats = () => {
     const connectSocket = () => {
       if (currentUser?.id) {
         try {
-          socketRef.current = io('http://localhost:6001', {
+          socketRef.current = io('https://sharables-production.up.railway.app', {
             withCredentials: true,
             transports: ['websocket', 'polling'],
             reconnectionAttempts: maxRetries,
@@ -296,7 +296,7 @@ const Chats = () => {
   if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+    <div className="flex justify-center items-center min-h-screen">
       <div className="w-full max-w-7xl h-[calc(100vh-80px)] flex gap-4 p-6">
         {socketError && (
           <div className="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md">
