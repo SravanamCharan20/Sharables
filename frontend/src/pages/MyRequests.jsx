@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FiSearch, FiFilter } from "react-icons/fi";
@@ -99,7 +100,7 @@ const MyRequests = () => {
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Search and Filters */}
         <div className="col-span-full lg:col-span-4 flex flex-col gap-6">
@@ -113,7 +114,7 @@ const MyRequests = () => {
 
           {/* Search and Filter Controls */}
           <div className="bg-gray-50 rounded-3xl p-6 shadow-lg space-y-4">
-            <div className="flex items-center border-2 rounded-full w-full p-2 bg-white">
+            <div className="flex items-center border-2 rounded-full w-full p-2 border-2 border-black">
               <FiSearch className="text-gray-500 mr-2" />
               <input
                 type="text"
@@ -138,7 +139,7 @@ const MyRequests = () => {
                   className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 ${
                     filter === 'pending' 
                       ? 'bg-amber-100 text-amber-600' 
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
+                      : 'border-2 border-black text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   <MdPendingActions className="text-xl" />
@@ -150,7 +151,7 @@ const MyRequests = () => {
                   className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 ${
                     filter === 'accepted' 
                       ? 'bg-teal-100 text-teal-600' 
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
+                      : 'border-2 border-black text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   <FcAcceptDatabase className="text-xl" />
@@ -162,7 +163,7 @@ const MyRequests = () => {
                   className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 ${
                     filter === 'rejected' 
                       ? 'bg-red-100 text-red-600' 
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
+                      : 'border-2 border-black text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   <ImCancelCircle className="text-xl" />
@@ -237,7 +238,7 @@ const MyRequests = () => {
                     </div>
 
                     {/* Description */}
-                    <div className="bg-white rounded-2xl p-6 shadow-sm mb-6">
+                    <div className="border-2 border-black rounded-2xl p-6 shadow-sm mb-6">
                       <h3 className="text-xl font-semibold text-gray-900 mb-3">Request Description</h3>
                       <p className="text-gray-600">{request.description || 'No description provided'}</p>
                     </div>

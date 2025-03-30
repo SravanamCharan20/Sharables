@@ -42,7 +42,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Header and Description */}
         <div className="col-span-full lg:col-span-4 flex flex-col gap-6">
@@ -89,7 +89,7 @@ export default function SignUp() {
           >
             <form onSubmit={handleSubmit} className="p-8 space-y-6">
               {/* Username Field */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-2">
                   <FiUser className="text-gray-400 text-xl" />
                   <label htmlFor="username" className="text-lg font-medium text-gray-900">
@@ -108,7 +108,7 @@ export default function SignUp() {
               </div>
 
               {/* Email Field */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-2">
                   <FiMail className="text-gray-400 text-xl" />
                   <label htmlFor="email" className="text-lg font-medium text-gray-900">
@@ -127,7 +127,7 @@ export default function SignUp() {
               </div>
 
               {/* Password Field */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-2">
                   <FiLock className="text-gray-400 text-xl" />
                   <label htmlFor="password" className="text-lg font-medium text-gray-900">

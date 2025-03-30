@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaLightbulb, FaChartLine, FaCalendarAlt, FaUsers, FaLeaf } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-import { getApiUrl } from '../config/api';
 
 const AIInsights = ({ userStats, donationType }) => {
   const [insights, setInsights] = useState(null);
@@ -25,7 +24,7 @@ const AIInsights = ({ userStats, donationType }) => {
           return;
         }
 
-        const response = await fetch(getApiUrl('api/ai/suggestions'), {
+        const response = await fetch('/api/ai/suggestions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -66,7 +65,7 @@ const AIInsights = ({ userStats, donationType }) => {
 
   if (error) {
     return (
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="border-2 border-black p-6 rounded-lg shadow-md">
         <div className="text-center text-red-600 p-4">
           <p className="font-semibold">Error loading insights</p>
           <p className="text-sm mt-2">{error}</p>
@@ -77,7 +76,7 @@ const AIInsights = ({ userStats, donationType }) => {
 
   if (!insights) {
     return (
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="border-2 border-black p-6 rounded-lg shadow-md">
         <div className="text-center text-gray-600 p-4">
           <p>No insights available at this time</p>
         </div>
@@ -94,7 +93,7 @@ const AIInsights = ({ userStats, donationType }) => {
   ];
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="border-2 border-black p-6 rounded-lg shadow-md">
       <h2 className="text-xl font-bold mb-6 text-gray-800">AI-Powered Insights</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map(({ icon: Icon, title, key }) => (

@@ -27,7 +27,7 @@ const About = () => {
       </section>
 
       {/* Our Mission and Vision */}
-      <section className="w-full py-24 px-6 md:px-12 max-w-7xl mx-auto text-center bg-white shadow-lg rounded-lg">
+      <section className="w-full py-24 px-6 md:px-12 max-w-7xl mx-auto text-center border-2 border-black shadow-lg rounded-lg">
         <h2 className="text-5xl font-bold text-gray-800 mb-12">Our Mission & Vision</h2>
         <div className="flex flex-col md:flex-row justify-around">
           <motion.div
@@ -59,7 +59,7 @@ const About = () => {
             <motion.div
               key={index}
               whileHover={{ scale: 1.1, rotate: 5 }}
-              className="bg-white shadow-xl rounded-lg p-10 text-center transition-transform duration-300"
+              className="border-2 border-black shadow-xl rounded-lg p-10 text-center transition-transform duration-300"
             >
               <div className="bg-gradient-to-tr from-green-500 to-blue-500 w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" className="w-8 h-8">
@@ -76,7 +76,7 @@ const About = () => {
       </section>
 
       {/* Meet the Team Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 border-2 border-black">
         <h2 className="text-5xl font-bold text-gray-800 text-center mb-16">Meet Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-6 md:px-12 max-w-7xl mx-auto">
           {[
@@ -112,7 +112,7 @@ const About = () => {
         </p>
         <motion.button
           whileHover={{ scale: 1.1, rotate: 5 }}
-          className="bg-white text-green-600 px-8 py-4 rounded-full font-semibold shadow-xl transition duration-300"
+          className="border-2 border-black text-green-600 px-8 py-4 rounded-full font-semibold shadow-xl transition duration-300"
         >
           Join Us
         </motion.button>

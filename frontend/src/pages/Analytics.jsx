@@ -277,7 +277,7 @@ const Analytics = () => {
         return (
           <div className="space-y-6" role="region" aria-label="Analytics Overview">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="total-donations-label">
+              <div className="border-2 border-black p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="total-donations-label">
                 <div className="flex items-center justify-between">
                   <div>
                     <p id="total-donations-label" className="text-gray-500">Total Donations</p>
@@ -289,7 +289,7 @@ const Analytics = () => {
                   <FaChartLine className="text-3xl text-gray-600" aria-hidden="true" />
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="success-rate-label">
+              <div className="border-2 border-black p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="success-rate-label">
                 <div className="flex items-center justify-between">
                   <div>
                     <p id="success-rate-label" className="text-gray-500">Success Rate</p>
@@ -305,7 +305,7 @@ const Analytics = () => {
                   <FaCircleCheck className="text-3xl text-gray-600" aria-hidden="true" />
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="active-donations-label">
+              <div className="border-2 border-black p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="active-donations-label">
                 <div className="flex items-center justify-between">
                   <div>
                     <p id="active-donations-label" className="text-gray-500">Active Donations</p>
@@ -316,7 +316,7 @@ const Analytics = () => {
                   <FaHandHoldingHeart className="text-3xl text-gray-600" aria-hidden="true" />
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="total-items-label">
+              <div className="border-2 border-black p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow" role="article" aria-labelledby="total-items-label">
                 <div className="flex items-center justify-between">
                   <div>
                     <p id="total-items-label" className="text-gray-500">Total Items</p>
@@ -332,7 +332,7 @@ const Analytics = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">
-                <div className="bg-white p-6 rounded-lg shadow-md" role="region" aria-labelledby="monthly-trends-title">
+                <div className="border-2 border-black p-6 rounded-lg shadow-md" role="region" aria-labelledby="monthly-trends-title">
                   <h2 id="monthly-trends-title" className="text-xl font-bold mb-4 text-gray-800">Monthly Donation Trends</h2>
                   <div className="h-80" role="img" aria-label="Line chart showing monthly donation trends">
                     <Line 
@@ -397,7 +397,7 @@ const Analytics = () => {
               </div>
 
               <div className="lg:col-span-1">
-                <div className="bg-white p-6 rounded-lg shadow-md" role="region" aria-labelledby="request-stats-title">
+                <div className="border-2 border-black p-6 rounded-lg shadow-md" role="region" aria-labelledby="request-stats-title">
                   <h2 id="request-stats-title" className="text-xl font-bold mb-4 text-gray-800">Request Statistics</h2>
                   <div className="space-y-4">
                     <div className="p-4 rounded-lg bg-gray-50" role="region" aria-labelledby="food-requests-title">
@@ -475,7 +475,7 @@ const Analytics = () => {
                 {/* Category Performance Analysis */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Food Donations Analysis */}
-                  <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="border-2 border-black p-6 rounded-lg shadow-sm">
                     <div className="flex items-center mb-4">
                       <FaChartLine className="text-xl text-blue-500 mr-3" aria-hidden="true" />
                       <h3 className="text-lg font-semibold text-gray-800">Food Donations Analysis</h3>
@@ -530,7 +530,7 @@ const Analytics = () => {
                   </div>
 
                   {/* Non-Food Donations Analysis */}
-                  <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="border-2 border-black p-6 rounded-lg shadow-sm">
                     <div className="flex items-center mb-4">
                       <FaChartLine className="text-xl text-purple-500 mr-3" aria-hidden="true" />
                       <h3 className="text-lg font-semibold text-gray-800">Non-Food Donations Analysis</h3>
@@ -586,7 +586,7 @@ const Analytics = () => {
                 </div>
 
                 {/* Smart Recommendations */}
-                <div className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="border-2 border-black p-6 rounded-lg shadow-sm">
                   <div className="flex items-center mb-4">
                     <FaLightbulb className="text-xl text-yellow-500 mr-3" aria-hidden="true" />
                     <h3 className="text-lg font-semibold text-gray-800">Smart Recommendations</h3>
@@ -618,7 +618,7 @@ const Analytics = () => {
                 </div>
 
                 {/* Impact Metrics */}
-                <div className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="border-2 border-black p-6 rounded-lg shadow-sm">
                   <div className="flex items-center mb-4">
                     <FaLeaf className="text-xl text-green-500 mr-3" aria-hidden="true" />
                     <h3 className="text-lg font-semibold text-gray-800">Category Impact Metrics</h3>
@@ -668,7 +668,7 @@ const Analytics = () => {
       case 'community':
         return (
           <div className="space-y-6" role="region" aria-label="Community Impact">
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="border-2 border-black p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-bold mb-6 text-gray-800">Community Impact</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center" role="article" aria-labelledby="food-donations-label">
@@ -712,7 +712,7 @@ const Analytics = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
+      <div className="w-64 border-2 border-black shadow-md">
         <div className="p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Analytics</h2>
           <nav className="space-y-2">

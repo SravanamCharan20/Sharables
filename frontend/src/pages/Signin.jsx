@@ -56,7 +56,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Header and Description */}
         <div className="col-span-full lg:col-span-4 flex flex-col gap-6">
@@ -105,7 +105,7 @@ export default function SignIn() {
               {/* Google Sign In Button */}
               <button
                 onClick={handleGoogleSignIn}
-                className="w-full flex items-center justify-center gap-3 bg-white text-gray-700 border border-gray-200 p-4 rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-sm"
+                className="w-full flex items-center justify-center gap-3 border-2 border-black text-gray-700 border border-gray-200 p-4 rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-sm"
               >
                 <FcGoogle className="text-xl" />
                 <span>Continue with Google</span>
@@ -122,7 +122,7 @@ export default function SignIn() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Email Field */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-2">
                     <FiMail className="text-gray-400 text-xl" />
                     <label htmlFor="email" className="text-lg font-medium text-gray-900">
@@ -140,7 +140,7 @@ export default function SignIn() {
                 </div>
 
                 {/* Password Field */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-2">
                     <FiLock className="text-gray-400 text-xl" />
                     <label htmlFor="password" className="text-lg font-medium text-gray-900">

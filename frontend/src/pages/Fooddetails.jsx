@@ -280,7 +280,7 @@ const FoodDetails = () => {
   if (!foodDetails) return <p className="text-center text-gray-500">No details available for this item.</p>;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Main Grid Layout */}
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Map and Donor Info */}
@@ -348,7 +348,7 @@ const FoodDetails = () => {
             {currentUser && (
               <button
                 onClick={handleChatInitialize}
-                className="w-full px-6 py-4 bg-white text-gray-900 text-lg font-medium rounded-2xl border-2 border-gray-900 hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full px-6 py-4 border-2 border-black text-gray-900 text-lg font-medium rounded-2xl border-2 border-gray-900 hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Chat with Donor <HiArrowSmRight />
               </button>
@@ -374,7 +374,7 @@ const FoodDetails = () => {
               <div key={index} className="bg-gray-50 rounded-3xl p-6">
                 <div className="grid gap-6 md:grid-cols-2">
                   {/* Food Specifications */}
-                  <div className="bg-white rounded-2xl p-6 shadow-sm">
+                  <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Food Specifications</h2>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
@@ -400,7 +400,7 @@ const FoodDetails = () => {
 
                   {/* Nutritional Information - Only shown for food items */}
                   {item?.category !== 'non-food' && (
-                    <div className="bg-white rounded-2xl p-6 shadow-sm">
+                    <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                       <h2 className="text-xl font-semibold text-gray-900 mb-4">Nutritional Information</h2>
                       <div className="grid grid-cols-2 gap-4">
                         {Object.entries(estimateNutritionalInfo(item?.name || '')).map(([key, value]) => (
@@ -420,7 +420,7 @@ const FoodDetails = () => {
 
                   {/* Environmental Impact - Only shown for food items */}
                   {item?.category !== 'non-food' && (
-                    <div className="bg-white rounded-2xl p-6 shadow-sm md:col-span-2">
+                    <div className="border-2 border-black rounded-2xl p-6 shadow-sm md:col-span-2">
                       <h2 className="text-xl font-semibold text-gray-900 mb-4">Environmental Impact</h2>
                       <div className="grid grid-cols-3 gap-4">
                         {Object.entries(estimateImpact(item?.name || '', item?.quantity || 0)).map(([key, value]) => (
@@ -443,7 +443,7 @@ const FoodDetails = () => {
                   )}
 
                   {/* Additional Information */}
-                  <div className="bg-white rounded-2xl p-6 shadow-sm md:col-span-2">
+                  <div className="border-2 border-black rounded-2xl p-6 shadow-sm md:col-span-2">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Additional Information</h2>
                     <div className="grid md:grid-cols-2 gap-4">
                       {item?.category !== 'non-food' && (
@@ -476,7 +476,7 @@ const FoodDetails = () => {
           {/* Request Form */}
           <div ref={requestFormRef}>
             {showRequestForm && (
-              <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Request Form</h2>
                 <form onSubmit={handleRequestSubmit} className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">

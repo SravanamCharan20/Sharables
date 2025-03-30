@@ -277,7 +277,7 @@ const AvailableNonFoodList = () => {
 
       {/* Filters Section */}
       {showFilters && (
-        <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <div className="border-2 border-black p-6 rounded-lg shadow-md mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Max Distance (km)</label>

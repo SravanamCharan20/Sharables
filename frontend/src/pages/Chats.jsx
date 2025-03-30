@@ -305,7 +305,7 @@ const Chats = () => {
         )}
         
         {/* Chat List */}
-        <div className="w-1/4 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="w-1/4 border-2 border-black rounded-lg shadow-lg overflow-hidden">
           <div className="p-4 border-b">
             <h2 className="text-2xl text-gray-800 font-semibold mb-4">Messages</h2>
             <div className="flex rounded-lg overflow-hidden border-2 border-gray-200">
@@ -313,7 +313,7 @@ const Chats = () => {
                 className={`flex-1 py-2 px-4 ${
                   activeTab === 'food'
                     ? 'bg-gray-800 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                    : 'border-2 border-black text-gray-600 hover:bg-gray-100'
                 }`}
                 onClick={() => setActiveTab('food')}
               >
@@ -326,7 +326,7 @@ const Chats = () => {
                 className={`flex-1 py-2 px-4 ${
                   activeTab === 'nonfood'
                     ? 'bg-gray-800 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                    : 'border-2 border-black text-gray-600 hover:bg-gray-100'
                 }`}
                 onClick={() => setActiveTab('nonfood')}
               >
@@ -431,7 +431,7 @@ const Chats = () => {
         </div>
 
         {/* Chat Messages */}
-        <div className="flex-1 bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+        <div className="flex-1 border-2 border-black rounded-lg shadow-lg overflow-hidden flex flex-col">
           {selectedChat ? (
             <>
               <div className="p-4 bg-gray-800 text-white">
@@ -506,7 +506,7 @@ const Chats = () => {
                           className={`max-w-[70%] p-3 rounded-lg ${
                             isSentByMe
                               ? 'bg-gray-800 text-white rounded-br-none'
-                              : 'bg-white text-gray-800 rounded-bl-none border-2 border-gray-600'
+                              : 'border-2 border-black text-gray-800 rounded-bl-none border-2 border-gray-600'
                           } shadow-sm`}
                         >
                           <div className="mb-1">
@@ -542,7 +542,7 @@ const Chats = () => {
                   <div ref={messagesEndRef} />
                 </div>
               </div>
-              <form onSubmit={handleSendMessage} className="p-4 bg-white border-t-2 border-gray-600">
+              <form onSubmit={handleSendMessage} className="p-4 border-2 border-black border-t-2 border-gray-600">
                 <div className="flex items-center space-x-2">
                   <input
                     type="text"

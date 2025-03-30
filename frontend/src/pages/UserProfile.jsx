@@ -44,7 +44,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Profile Picture and Actions */}
         <div className="col-span-full lg:col-span-4 flex flex-col gap-6">
@@ -108,7 +108,7 @@ const UserProfile = () => {
                 <div className="p-8">
                   <h2 className="text-2xl font-semibold text-gray-900 mb-6">Basic Information</h2>
                   <div className="grid gap-6">
-                    <div className="bg-white rounded-2xl p-6 shadow-sm">
+                    <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                       <div className="flex items-center gap-3 mb-2">
                         <FiUser className="text-gray-400 text-xl" />
                         <h3 className="text-lg font-medium text-gray-900">Username</h3>
@@ -116,7 +116,7 @@ const UserProfile = () => {
                       <p className="text-gray-600 ml-9">{user.username}</p>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-6 shadow-sm">
+                    <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                       <div className="flex items-center gap-3 mb-2">
                         <FiMail className="text-gray-400 text-xl" />
                         <h3 className="text-lg font-medium text-gray-900">Email</h3>

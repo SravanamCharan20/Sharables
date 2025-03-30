@@ -75,7 +75,7 @@ const HowEcobitesWorks = () => {
 
         {/* Content Box with Animation */}
         <motion.div
-          className="bg-white p-8 rounded-3xl shadow-lg"
+          className="border-2 border-black p-8 rounded-3xl shadow-lg"
           style={{ backgroundColor: steps[currentStep].color }} 
           key={currentStep}
           initial={{ opacity: 0, y: 20 }}

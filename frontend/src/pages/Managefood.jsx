@@ -288,7 +288,7 @@ const ManageFood = () => {
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Search, Filters, and Stats */}
         <div className="col-span-full lg:col-span-4 flex flex-col gap-6">
@@ -302,7 +302,7 @@ const ManageFood = () => {
 
           {/* Search and Filter Controls */}
           <div className="bg-gray-50 rounded-3xl p-6 shadow-lg space-y-4">
-            <div className="flex items-center border-2 rounded-full w-full p-2 bg-white">
+            <div className="flex items-center border-2 rounded-full w-full p-2 border-2 border-black">
               <FiSearch className="text-gray-500 mr-2" />
               <input
                 type="text"
@@ -327,7 +327,7 @@ const ManageFood = () => {
                   <select
                     value={filters.foodType}
                     onChange={(e) => setFilters(prev => ({ ...prev, foodType: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Types</option>
                     {foodTypes.map(type => (
@@ -341,7 +341,7 @@ const ManageFood = () => {
                   <select
                     value={filters.donationType}
                     onChange={(e) => setFilters(prev => ({ ...prev, donationType: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Types</option>
                     {donationTypes.map(type => (
@@ -355,7 +355,7 @@ const ManageFood = () => {
                   <select
                     value={filters.expiryRange}
                     onChange={(e) => setFilters(prev => ({ ...prev, expiryRange: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Ranges</option>
                     {expiryRanges.map(range => (
@@ -369,7 +369,7 @@ const ManageFood = () => {
                   <select
                     value={filters.distributionPriority}
                     onChange={(e) => setFilters(prev => ({ ...prev, distributionPriority: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Priorities</option>
                     {distributionPriorities.map(priority => (
@@ -434,7 +434,7 @@ const ManageFood = () => {
                     <div className="p-8">
                       <form onSubmit={(e) => { e.preventDefault(); handleSave(); }} className="space-y-6">
                         {/* Donor Information */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm">
+                        <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                           <h3 className="text-xl font-semibold text-gray-900 mb-4">Donor Information</h3>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input
@@ -465,7 +465,7 @@ const ManageFood = () => {
                         </div>
 
                         {/* Location Section */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm">
+                        <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                           <h3 className="text-xl font-semibold text-gray-900 mb-4">Location</h3>
                           <button
                             type="button"
@@ -480,7 +480,7 @@ const ManageFood = () => {
                         </div>
 
                         {/* Food Items */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm">
+                        <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                           <div className="flex items-center justify-between mb-4">
                             <h3 className="text-xl font-semibold text-gray-900">Food Items</h3>
                             <button
@@ -502,7 +502,7 @@ const ManageFood = () => {
                                     placeholder="Food Item Name"
                                     value={item.name}
                                     onChange={(e) => handleFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                                   />
                                   <input
                                     type="number"
@@ -510,20 +510,20 @@ const ManageFood = () => {
                                     placeholder="Quantity"
                                     value={item.quantity}
                                     onChange={(e) => handleFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                                   />
                                   <input
                                     type="date"
                                     name="expiryDate"
                                     value={item.expiryDate}
                                     onChange={(e) => handleFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                                   />
                                   <select
                                     name="type"
                                     value={item.type}
                                     onChange={(e) => handleFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                                   >
                                     <option value="">Select Type</option>
                                     {foodTypes.map(type => (
@@ -606,7 +606,7 @@ const ManageFood = () => {
                       {/* Food Items Grid */}
                       <div className="grid gap-6">
                         {donation.foodItems.map((item, index) => (
-                          <div key={index} className="bg-white rounded-2xl p-6 shadow-sm">
+                          <div key={index} className="border-2 border-black rounded-2xl p-6 shadow-sm">
                             <div className="flex justify-between items-start mb-4">
                               <h3 className="text-xl font-semibold text-gray-900">{item.name}</h3>
                               <span className={`px-3 py-1 rounded-full text-sm ${

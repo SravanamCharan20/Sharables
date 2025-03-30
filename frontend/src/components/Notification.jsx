@@ -4,7 +4,6 @@ import { IoMdNotifications } from 'react-icons/io';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { getApiUrl } from '../config/api';
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
@@ -20,7 +19,7 @@ const Notification = () => {
         return;
       }
 
-      const response = await axios.get(getApiUrl('api/notifications'), {
+      const response = await axios.get('/api/notifications', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -53,7 +52,7 @@ const Notification = () => {
 
   const handleNotificationClick = async (notificationId) => {
     try {
-      await axios.put(getApiUrl(`api/notifications/${notificationId}/read`), null, {
+      await axios.put(`/api/notifications/${notificationId}/read`, null, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         }
@@ -66,7 +65,7 @@ const Notification = () => {
 
   const clearAllNotifications = async () => {
     try {
-      await axios.put(getApiUrl('api/notifications/mark-all-read'), null, {
+      await axios.put('/api/notifications/mark-all-read', null, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         }
@@ -100,7 +99,7 @@ const Notification = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-50"
+            className="absolute right-0 mt-2 w-80 border-2 border-black rounded-lg shadow-xl z-50"
           >
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-center">

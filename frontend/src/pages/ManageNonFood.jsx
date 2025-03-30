@@ -225,7 +225,7 @@ const ManageNonFood = () => {
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Search, Filters, and Stats */}
         <div className="col-span-full lg:col-span-4 flex flex-col gap-6">
@@ -239,7 +239,7 @@ const ManageNonFood = () => {
 
           {/* Search and Filter Controls */}
           <div className="bg-gray-50 rounded-3xl p-6 shadow-lg space-y-4">
-            <div className="flex items-center border-2 rounded-full w-full p-2 bg-white">
+            <div className="flex items-center border-2 rounded-full w-full p-2 border-2 border-black">
               <FiSearch className="text-gray-500 mr-2" />
           <input
             type="text"
@@ -264,7 +264,7 @@ const ManageNonFood = () => {
                   <select
                     value={filters.category}
                     onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Categories</option>
                     {categories.map(category => (
@@ -278,7 +278,7 @@ const ManageNonFood = () => {
                   <select
                     value={filters.condition}
                     onChange={(e) => setFilters(prev => ({ ...prev, condition: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Conditions</option>
                     {conditions.map(condition => (
@@ -292,7 +292,7 @@ const ManageNonFood = () => {
                   <select
                     value={filters.priceRange}
                     onChange={(e) => setFilters(prev => ({ ...prev, priceRange: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Prices</option>
                     <option value="free">Free</option>
@@ -307,7 +307,7 @@ const ManageNonFood = () => {
                   <select
                     value={filters.qualityScore}
                     onChange={(e) => setFilters(prev => ({ ...prev, qualityScore: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Scores</option>
                     {qualityScores.map(score => (
@@ -321,7 +321,7 @@ const ManageNonFood = () => {
                   <select
                     value={filters.sustainabilityScore}
                     onChange={(e) => setFilters(prev => ({ ...prev, sustainabilityScore: e.target.value }))}
-                    className="w-full p-3 border rounded-xl bg-white"
+                    className="w-full p-3 border rounded-xl border-2 border-black"
                   >
                     <option value="">All Scores</option>
                     {sustainabilityScores.map(score => (
@@ -385,7 +385,7 @@ const ManageNonFood = () => {
                     <div className="p-8">
                       <form onSubmit={(e) => { e.preventDefault(); handleSave(); }} className="space-y-6">
                         {/* Donor Information */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm">
+                        <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                           <h3 className="text-xl font-semibold text-gray-900 mb-4">Donor Information</h3>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
@@ -416,7 +416,7 @@ const ManageNonFood = () => {
                         </div>
 
                         {/* Non-Food Items */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm">
+                        <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                           <div className="flex items-center justify-between mb-4">
                             <h3 className="text-xl font-semibold text-gray-900">Non-Food Items</h3>
                             <button
@@ -438,7 +438,7 @@ const ManageNonFood = () => {
                                     placeholder="Item Name"
                           value={item.name}
                           onChange={(e) => handleNonFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                         />
                         <input
                           type="number"
@@ -446,13 +446,13 @@ const ManageNonFood = () => {
                           placeholder="Quantity"
                           value={item.quantity}
                           onChange={(e) => handleNonFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                                   />
                                   <select
                                     name="category"
                                     value={item.category}
                                     onChange={(e) => handleNonFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                                   >
                                     <option value="">Select Category</option>
                                     {categories.map(cat => (
@@ -463,7 +463,7 @@ const ManageNonFood = () => {
                                     name="condition"
                                     value={item.condition}
                                     onChange={(e) => handleNonFoodItemChange(index, e)}
-                                    className="w-full px-4 py-3 border rounded-xl bg-white"
+                                    className="w-full px-4 py-3 border rounded-xl border-2 border-black"
                                   >
                                     <option value="">Select Condition</option>
                                     {conditions.map(cond => (
@@ -546,7 +546,7 @@ const ManageNonFood = () => {
                       {/* Non-Food Items Grid */}
                       <div className="grid gap-6">
                         {donation.nonFoodItems.map((item, index) => (
-                          <div key={index} className="bg-white rounded-2xl p-6 shadow-sm">
+                          <div key={index} className="border-2 border-black rounded-2xl p-6 shadow-sm">
                             <div className="flex justify-between items-start mb-4">
                               <h3 className="text-xl font-semibold text-gray-900">{item.name}</h3>
                               <span className={`px-3 py-1 rounded-full text-sm ${

@@ -204,7 +204,7 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <div className="grid grid-cols-12 gap-6 p-6">
         {/* Left Column - Preview and Header */}
         <div className="col-span-full lg:col-span-4 flex flex-col gap-6">
@@ -258,7 +258,7 @@ const UpdateProfile = () => {
             <form onSubmit={handleUpdate} className="p-8 space-y-6">
               <div className="grid gap-6">
                 {/* Username Field */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-2">
                     <FiUser className="text-gray-400 text-xl" />
                     <label htmlFor="username" className="text-lg font-medium text-gray-900">
@@ -276,7 +276,7 @@ const UpdateProfile = () => {
                 </div>
 
                 {/* Old Password Field */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-2">
                     <FiLock className="text-gray-400 text-xl" />
                     <label htmlFor="oldPassword" className="text-lg font-medium text-gray-900">
@@ -294,7 +294,7 @@ const UpdateProfile = () => {
                 </div>
 
                 {/* New Password Field */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="border-2 border-black rounded-2xl p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-2">
                     <FiLock className="text-gray-400 text-xl" />
                     <label htmlFor="newPassword" className="text-lg font-medium text-gray-900">
