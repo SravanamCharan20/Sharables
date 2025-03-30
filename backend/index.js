@@ -50,7 +50,22 @@ const app = express();
 
 // Apply CORS before other middleware
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        const allowedOrigins = [
+            'https://sharables.vercel.app',
+            'https://sharables.vercel.app/',
+            process.env.CORS_ORIGIN
+        ].filter(Boolean); // Remove any undefined/null values
+        
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
@@ -76,7 +91,11 @@ app.use(passport.session());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CORS_ORIGIN,
+    origin: [
+      'https://sharables.vercel.app',
+      'https://sharables.vercel.app/',
+      process.env.CORS_ORIGIN
+    ].filter(Boolean),
     methods: ["GET", "POST"],
     credentials: true
   }
