@@ -24,7 +24,7 @@ import UserProfile from './pages/UserProfile';
 import ManageNonFood from './pages/ManageNonFood';
 import Chats from './pages/Chats';
 import OAuthCallback from './pages/OAuthCallback';
-import Private from './components/Private';
+import Private from '@/components/Private';
 import Analytics from './pages/Analytics';
 
 
