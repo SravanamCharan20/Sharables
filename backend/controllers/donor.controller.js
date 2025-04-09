@@ -9,6 +9,7 @@ import Request from '../models/request.model.js'
 import NonFoodDonation from '../models/nonfood.model.js';
 import NonFoodRequest from '../models/nonfoodrequest.model.js';
 import { calculateFoodMetrics, calculateNonFoodMetrics } from '../utils/aiMetrics.js';
+import { io } from '../index.js';
 
 dotenv.config();
 
@@ -77,6 +78,10 @@ export const donationform = async (req, res) => {
     });
 
     const savedDonor = await donor.save();
+    
+    // Emit socket event for new food donation
+    io.emit('newFoodDonation', savedDonor);
+    
     res.status(201).json(savedDonor);
   } catch (error) {
     console.error('Error in donationform:', error);
@@ -130,6 +135,10 @@ export const nonfooddonorform = async (req, res) => {
     });
 
     const savedDonor = await donor.save();
+    
+    // Emit socket event for new non-food donation
+    io.emit('newNonFoodDonation', savedDonor);
+    
     res.status(201).json(savedDonor);
   } catch (error) {
     console.error('Error in nonfooddonorform:', error);
@@ -191,6 +200,10 @@ export const updateDonor = async (req, res) => {
     if (!donor) {
       return res.status(404).json({ message: 'Donor not found.' });
     }
+    
+    // Emit socket event for updated food donation
+    io.emit('updateFoodDonation', donor);
+    
     res.json(donor);
   } catch (error) {
     res.status(500).json({ message: 'Failed to update donation.', error });
@@ -203,6 +216,10 @@ export const updatenonfoodDonor = async (req, res) => {
     if (!donor) {
       return res.status(404).json({ message: 'Donor not found.' });
     }
+    
+    // Emit socket event for updated non-food donation
+    io.emit('updateNonFoodDonation', donor);
+    
     res.json(donor);
   } catch (error) {
     console.error('Update error:', error);

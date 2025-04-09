@@ -89,7 +89,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const httpServer = createServer(app);
-const io = new Server(httpServer, {
+export const io = new Server(httpServer, {
   cors: {
     origin: [
       'https://sharables.vercel.app',
@@ -112,6 +112,33 @@ io.on('connection', (socket) => {
     console.log('User joined:', userId);
   });
 
+  // Food donation events
+  socket.on('newFoodDonation', (donation) => {
+    io.emit('newFoodItem', donation);
+  });
+
+  socket.on('updateFoodDonation', (donation) => {
+    io.emit('foodItemUpdated', donation);
+  });
+
+  socket.on('deleteFoodDonation', (donationId) => {
+    io.emit('foodItemDeleted', donationId);
+  });
+
+  // Non-food donation events
+  socket.on('newNonFoodDonation', (donation) => {
+    io.emit('newNonFoodItem', donation);
+  });
+
+  socket.on('updateNonFoodDonation', (donation) => {
+    io.emit('nonFoodItemUpdated', donation);
+  });
+
+  socket.on('deleteNonFoodDonation', (donationId) => {
+    io.emit('nonFoodItemDeleted', donationId);
+  });
+
+  // Chat events
   socket.on('sendMessage', async ({ chatId, message }) => {
     try {
       const chat = await Chat.findById(chatId).populate('donorId requesterId');

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -176,7 +177,7 @@ export default function SignIn() {
                 </button>
 
                 <div className="text-center">
-                  <span className="text-gray-600">Don't have an account? </span>
+                  <span className="text-gray-600">Don&apos;t have an account? </span>
                   <Link
                     to="/signup"
                     className="text-gray-900 hover:text-gray-700 font-medium transition-colors duration-200"

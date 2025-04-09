@@ -36,54 +36,48 @@ const Chats = () => {
 
   // Initialize socket connection
   useEffect(() => {
-    let retryCount = 0;
-    const maxRetries = 3;
+    if (!currentUser?.id) return;
 
-    const connectSocket = () => {
-      if (currentUser?.id) {
-        try {
-          socketRef.current = io('https://sharables-production.up.railway.app', {
-            withCredentials: true,
-            transports: ['websocket', 'polling'],
-            reconnectionAttempts: maxRetries,
-            reconnectionDelay: 1000,
-          });
+    const socket = io('https://sharables-production.up.railway.app', {
+      withCredentials: true,
+      transports: ['websocket', 'polling']
+    });
 
-          socketRef.current.on('connect', () => {
-            console.log('Socket connected');
-            setSocketError(false);
-            socketRef.current.emit('join', currentUser.id);
-          });
+    socket.on('connect', () => {
+      console.log('Socket connected');
+      setSocketError(false);
+      socket.emit('join', currentUser.id);
+    });
 
-          socketRef.current.on('connect_error', (error) => {
-            console.error('Socket connection error:', error);
-            retryCount++;
-            if (retryCount >= maxRetries) {
-              setSocketError(true);
-            }
-          });
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+      setSocketError(true);
+    });
 
-          socketRef.current.on('newMessage', ({ chatId, message }) => {
-            if (selectedChat && selectedChat._id === chatId) {
-              setMessages(prev => [...prev, message]);
-              scrollToBottom();
-            }
-            fetchChats();
-          });
-
-          return () => {
-            if (socketRef.current) {
-              socketRef.current.disconnect();
-            }
-          };
-        } catch (error) {
-          console.error('Socket initialization error:', error);
-          setSocketError(true);
-        }
+    socket.on('newMessage', ({ chatId, message }) => {
+      if (selectedChat && selectedChat._id === chatId) {
+        setMessages(prev => [...prev, message]);
+        scrollToBottom();
       }
-    };
+      // Update the last message in the chat list
+      setChats(prevChats => 
+        prevChats.map(chat => 
+          chat._id === chatId 
+            ? { ...chat, messages: [...(chat.messages || []), message] }
+            : chat
+        )
+      );
+    });
 
-    connectSocket();
+    socket.on('chatUpdated', (updatedChat) => {
+      setChats(prevChats => 
+        prevChats.map(chat => chat._id === updatedChat._id ? updatedChat : chat)
+      );
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, [currentUser, selectedChat]);
 
   useEffect(() => {
@@ -233,8 +227,6 @@ const Chats = () => {
         timestamp: new Date().toISOString()
       };
 
-      console.log('Sending message data:', messageData);
-
       const response = await fetch(`/api/chat/${selectedChat._id}/messages`, {
         method: 'POST',
         headers: {
@@ -243,33 +235,27 @@ const Chats = () => {
         body: JSON.stringify(messageData),
       });
 
-      const responseData = await response.json();
-      console.log('Server response:', responseData);
-
       if (!response.ok) {
-        throw new Error(responseData.message || 'Failed to send message');
+        throw new Error('Failed to send message');
       }
 
-      const newMessageObj = {
-        ...responseData.messages[responseData.messages.length - 1],
-        senderId: currentUser.id,
-        timestamp: new Date().toISOString()
-      };
+      const data = await response.json();
+      const newMessageObj = data.messages[data.messages.length - 1];
       
-      console.log('New message object:', newMessageObj);
       setMessages(prev => [...prev, newMessageObj]);
       setNewMessage('');
       scrollToBottom();
 
-      if (socketRef.current?.connected) {
-        socketRef.current.emit('sendMessage', {
-          chatId: selectedChat._id,
-          message: newMessageObj
-        });
-      }
+      // Update the chat list with the new message
+      setChats(prevChats => 
+        prevChats.map(chat => 
+          chat._id === selectedChat._id 
+            ? { ...chat, messages: [...(chat.messages || []), newMessageObj] }
+            : chat
+        )
+      );
     } catch (error) {
-      console.error('Error details:', error);
-      // Show error to user
+      console.error('Error sending message:', error);
       alert('Failed to send message. Please try again.');
     }
   };

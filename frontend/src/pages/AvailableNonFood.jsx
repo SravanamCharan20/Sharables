@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { HiArrowSmRight } from 'react-icons/hi';
 import { FiFilter } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
+import io from 'socket.io-client';
 
 const AvailableNonFoodList = () => {
   const [nonFoodItems, setNonFoodItems] = useState([]);
@@ -227,6 +229,39 @@ const AvailableNonFoodList = () => {
   useEffect(() => {
     fetchNonFoodItems();
     getUserLocation();
+
+    // Initialize socket connection
+    const socket = io('https://sharables-production.up.railway.app', {
+      withCredentials: true,
+      transports: ['websocket', 'polling']
+    });
+
+    socket.on('connect', () => {
+      console.log('Socket connected');
+    });
+
+    // Listen for new non-food items
+    socket.on('newNonFoodItem', (newItem) => {
+      setNonFoodItems(prevItems => [...prevItems, newItem]);
+    });
+
+    // Listen for non-food item updates
+    socket.on('nonFoodItemUpdated', (updatedItem) => {
+      setNonFoodItems(prevItems => 
+        prevItems.map(item => item._id === updatedItem._id ? updatedItem : item)
+      );
+    });
+
+    // Listen for non-food item deletions
+    socket.on('nonFoodItemDeleted', (deletedItemId) => {
+      setNonFoodItems(prevItems => 
+        prevItems.filter(item => item._id !== deletedItemId)
+      );
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {

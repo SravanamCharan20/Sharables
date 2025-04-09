@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { HiArrowSmRight } from "react-icons/hi";
 import { FiFilter } from "react-icons/fi";
 import { getApiUrl } from '../config/api';
+import io from 'socket.io-client';
 
 const AvailableFoodList = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -224,6 +225,39 @@ const AvailableFoodList = () => {
   useEffect(() => {
     fetchFoodItems();
     getUserLocation();
+
+    // Initialize socket connection
+    const socket = io('https://sharables-production.up.railway.app', {
+      withCredentials: true,
+      transports: ['websocket', 'polling']
+    });
+
+    socket.on('connect', () => {
+      console.log('Socket connected');
+    });
+
+    // Listen for new food items
+    socket.on('newFoodItem', (newItem) => {
+      setFoodItems(prevItems => [...prevItems, newItem]);
+    });
+
+    // Listen for food item updates
+    socket.on('foodItemUpdated', (updatedItem) => {
+      setFoodItems(prevItems => 
+        prevItems.map(item => item._id === updatedItem._id ? updatedItem : item)
+      );
+    });
+
+    // Listen for food item deletions
+    socket.on('foodItemDeleted', (deletedItemId) => {
+      setFoodItems(prevItems => 
+        prevItems.filter(item => item._id !== deletedItemId)
+      );
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
