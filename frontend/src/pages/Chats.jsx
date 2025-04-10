@@ -40,11 +40,16 @@ const Chats = () => {
 
     const socket = io('https://sharables-production.up.railway.app', {
       withCredentials: true,
-      transports: ['websocket', 'polling']
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000
     });
 
     socket.on('connect', () => {
-      console.log('Socket connected');
+      console.log('Socket connected successfully');
       setSocketError(false);
       socket.emit('join', currentUser.id);
     });
@@ -52,6 +57,13 @@ const Chats = () => {
     socket.on('connect_error', (error) => {
       console.error('Socket connection error:', error);
       setSocketError(true);
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log('Socket disconnected:', reason);
+      if (reason === 'io server disconnect') {
+        socket.connect();
+      }
     });
 
     socket.on('newMessage', ({ chatId, message }) => {
@@ -269,11 +281,7 @@ const Chats = () => {
       if (socketRef.current) {
         socketRef.current.emit('sendMessage', {
           chatId: selectedChat._id,
-          message: {
-            senderId: currentUser.id,
-            content: newMessage,
-            timestamp: new Date().toISOString()
-          }
+          message: newMessageObj
         });
       }
 
