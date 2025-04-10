@@ -55,30 +55,44 @@ const Chats = () => {
     });
 
     socket.on('newMessage', ({ chatId, message }) => {
+      console.log('Received new message:', { chatId, message });
+      
+      // Update messages if this is the selected chat
       if (selectedChat && selectedChat._id === chatId) {
         setMessages(prev => [...prev, message]);
         scrollToBottom();
       }
-      // Update the last message in the chat list
+      
+      // Update the chat list with the new message
       setChats(prevChats => 
         prevChats.map(chat => 
           chat._id === chatId 
-            ? { ...chat, messages: [...(chat.messages || []), message] }
+            ? { 
+                ...chat, 
+                messages: [...(chat.messages || []), message],
+                lastMessage: message.content,
+                lastMessageTime: message.timestamp
+              }
             : chat
         )
       );
     });
 
     socket.on('chatUpdated', (updatedChat) => {
+      console.log('Chat updated:', updatedChat);
       setChats(prevChats => 
         prevChats.map(chat => chat._id === updatedChat._id ? updatedChat : chat)
       );
     });
 
+    socketRef.current = socket;
+
     return () => {
-      socket.disconnect();
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
     };
-  }, [currentUser, selectedChat]);
+  }, [currentUser]);
 
   useEffect(() => {
     if (currentUser?.id) {
@@ -242,18 +256,16 @@ const Chats = () => {
       const data = await response.json();
       const newMessageObj = data.messages[data.messages.length - 1];
       
-      setMessages(prev => [...prev, newMessageObj]);
+      // Emit the new message through socket
+      if (socketRef.current) {
+        socketRef.current.emit('sendMessage', {
+          chatId: selectedChat._id,
+          message: newMessageObj
+        });
+      }
+
       setNewMessage('');
       scrollToBottom();
-
-      // Update the chat list with the new message
-      setChats(prevChats => 
-        prevChats.map(chat => 
-          chat._id === selectedChat._id 
-            ? { ...chat, messages: [...(chat.messages || []), newMessageObj] }
-            : chat
-        )
-      );
     } catch (error) {
       console.error('Error sending message:', error);
       alert('Failed to send message. Please try again.');
