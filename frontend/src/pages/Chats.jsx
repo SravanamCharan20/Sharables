@@ -81,7 +81,16 @@ const Chats = () => {
     socket.on('chatUpdated', (updatedChat) => {
       console.log('Chat updated:', updatedChat);
       setChats(prevChats => 
-        prevChats.map(chat => chat._id === updatedChat._id ? updatedChat : chat)
+        prevChats.map(chat => 
+          chat._id === updatedChat._id 
+            ? { 
+                ...updatedChat,
+                messages: updatedChat.messages || [],
+                lastMessage: updatedChat.messages?.[updatedChat.messages.length - 1]?.content,
+                lastMessageTime: updatedChat.messages?.[updatedChat.messages.length - 1]?.timestamp
+              }
+            : chat
+        )
       );
     });
 
@@ -260,7 +269,11 @@ const Chats = () => {
       if (socketRef.current) {
         socketRef.current.emit('sendMessage', {
           chatId: selectedChat._id,
-          message: newMessageObj
+          message: {
+            senderId: currentUser.id,
+            content: newMessage,
+            timestamp: new Date().toISOString()
+          }
         });
       }
 

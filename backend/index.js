@@ -141,7 +141,10 @@ io.on('connection', (socket) => {
   // Chat events
   socket.on('sendMessage', async ({ chatId, message }) => {
     try {
-      const chat = await Chat.findById(chatId).populate('donorId requesterId');
+      const chat = await Chat.findById(chatId)
+        .populate('donorId', 'username')
+        .populate('requesterId', 'username');
+      
       if (!chat) {
         console.error('Chat not found:', chatId);
         return;
@@ -151,20 +154,50 @@ io.on('connection', (socket) => {
         console.error('Self-chat is not allowed');
         return;
       }
+
+      // Add message to chat in database
+      chat.messages.push({
+        sender: message.senderId,
+        content: message.content,
+        timestamp: message.timestamp
+      });
+      chat.lastMessage = new Date();
+      await chat.save();
+
+      // Get the updated chat with populated messages
+      const updatedChat = await Chat.findById(chatId)
+        .populate('donorId', 'username')
+        .populate('requesterId', 'username')
+        .populate('messages.sender', 'username');
+
+      // Get the last message
+      const lastMessage = updatedChat.messages[updatedChat.messages.length - 1];
       
-      const recipientId = message.senderId === chat.donorId._id.toString()
-        ? chat.requesterId._id.toString()
-        : chat.donorId._id.toString();
-      
-      const recipientSocketId = activeUsers.get(recipientId);
-      if (recipientSocketId) {
-        io.to(recipientSocketId).emit('newMessage', {
+      // Emit to both users in the chat
+      const donorSocketId = activeUsers.get(chat.donorId._id.toString());
+      const requesterSocketId = activeUsers.get(chat.requesterId._id.toString());
+
+      if (donorSocketId) {
+        io.to(donorSocketId).emit('newMessage', {
           chatId,
-          message: {
-            ...message,
-            senderId: message.senderId
-          }
+          message: lastMessage
         });
+      }
+
+      if (requesterSocketId) {
+        io.to(requesterSocketId).emit('newMessage', {
+          chatId,
+          message: lastMessage
+        });
+      }
+
+      // Also emit chat update to both users
+      if (donorSocketId) {
+        io.to(donorSocketId).emit('chatUpdated', updatedChat);
+      }
+
+      if (requesterSocketId) {
+        io.to(requesterSocketId).emit('chatUpdated', updatedChat);
       }
     } catch (error) {
       console.error('Error in sendMessage:', error);
