@@ -226,33 +226,56 @@ const AvailableFoodList = () => {
     fetchFoodItems();
     getUserLocation();
 
-    // Initialize socket connection
+    // Initialize socket connection with better error handling
     const socket = io('https://sharables-production.up.railway.app', {
       withCredentials: true,
-      transports: ['websocket', 'polling']
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000
     });
 
     socket.on('connect', () => {
-      console.log('Socket connected');
+      console.log('Socket connected successfully');
+    });
+
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log('Socket disconnected:', reason);
+      if (reason === 'io server disconnect') {
+        // Server initiated disconnect, try to reconnect
+        socket.connect();
+      }
     });
 
     // Listen for new food items
     socket.on('newFoodItem', (newItem) => {
+      console.log('Received new food item:', newItem);
       setFoodItems(prevItems => [...prevItems, newItem]);
+      calculateAndSortFoodItems();
     });
 
     // Listen for food item updates
     socket.on('foodItemUpdated', (updatedItem) => {
+      console.log('Received food item update:', updatedItem);
       setFoodItems(prevItems => 
         prevItems.map(item => item._id === updatedItem._id ? updatedItem : item)
       );
+      calculateAndSortFoodItems();
     });
 
     // Listen for food item deletions
     socket.on('foodItemDeleted', (deletedItemId) => {
+      console.log('Received food item deletion:', deletedItemId);
       setFoodItems(prevItems => 
         prevItems.filter(item => item._id !== deletedItemId)
       );
+      calculateAndSortFoodItems();
     });
 
     return () => {
